@@ -61,23 +61,21 @@ Full diagram: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) · Deployment: [docs/
 
 ---
 
-## 43030 Professional Learning (UTS)
+## Engineering documentation
 
-Evidence for Assessment Task 1 / 3 (ChengYi Li, 25526411):
+| Topic | In this repo | Extended notes |
+|-------|----------------|----------------|
+| Security | [docs/security/sunishop-security.md](docs/security/sunishop-security.md) | [Learning log — security](https://github.com/LouisLi1020/43030-learning-log/blob/main/docs/sunishop/security.md) |
+| Architecture | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | [Learning log — architecture](https://github.com/LouisLi1020/43030-learning-log/blob/main/docs/sunishop/architecture.md) |
+| CI / tests | [.github/workflows/ci.yml](.github/workflows/ci.yml) | [Learning log — CI](https://github.com/LouisLi1020/43030-learning-log/blob/main/docs/sunishop/ci-and-testing.md) |
 
-| Goal | Evidence in this repo |
-|------|---------------------|
-| G2 Cybersecurity | [docs/security/sunishop-security.md](docs/security/sunishop-security.md) |
-| G3 Software tools | [.github/workflows/ci.yml](.github/workflows/ci.yml), `server/src/__tests__/` |
-| G4 System design | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) |
-
-Full index: [docs/43030-PORTFOLIO.md](docs/43030-PORTFOLIO.md)
+*Last engineering update: May 2026.*
 
 ---
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). Use branches such as `43030/g2-security` for subject-related work.
+See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
