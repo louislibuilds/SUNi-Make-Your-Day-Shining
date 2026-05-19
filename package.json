@@ -1,21 +1,21 @@
 {
   "name": "suni-platform",
   "version": "1.0.0",
-  "description": "Suni - Beach Lifestyle & Water Activities Platform",
+  "description": "SUNi - MERN e-commerce platform",
   "private": true,
-  "keywords": [
-    "e-commerce",
-    "water-activities",
-    "beach",
-    "booking",
-    "react",
-    "nodejs",
-    "mongodb"
-  ],
+  "scripts": {
+    "install:all": "npm install --prefix server && npm install --prefix client",
+    "dev": "npm run dev --prefix server",
+    "dev:client": "npm run dev --prefix client",
+    "test": "npm test --prefix server",
+    "test:server": "npm test --prefix server",
+    "lint:server": "npm run lint --prefix server",
+    "build:client": "npm run build --prefix client"
+  },
+  "keywords": ["e-commerce", "mern", "typescript"],
   "author": "LouisLi1020",
   "license": "MIT",
   "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=8.0.0"
+    "node": ">=18.0.0"
   }
 }

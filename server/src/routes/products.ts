@@ -11,13 +11,14 @@ import {
   updateInventory,
   getProductStats
 } from '../controllers/productController';
-import { authenticate, requireAdmin, requireOwnershipOrAdmin } from '../middleware/auth';
+import { authenticate, requireAdmin } from '../middleware/auth';
+import { validateProductListQuery } from '../middleware/validateProductQuery';
 
 const router = Router();
 
 // Public routes (no authentication required)
-router.get('/', getProducts);
-router.get('/search', searchProducts);
+router.get('/', validateProductListQuery, getProducts);
+router.get('/search', validateProductListQuery, searchProducts);
 router.get('/featured', getFeaturedProducts);
 router.get('/categories', getCategories);
 router.get('/stats', getProductStats);

@@ -70,7 +70,7 @@ export const register: RequestHandler = async (req: RegisterRequest, res: Respon
       });
     }
 
-    if (password.length < 6) {
+    if (password.length < 8) {
       return res.status(400).json({
         success: false,
         message: 'Password must be at least 6 characters long'
@@ -305,7 +305,7 @@ export const changePassword = async (req: any, res: Response, next: NextFunction
       });
     }
 
-    if (newPassword.length < 6) {
+    if (newPassword.length < 8) {
       return res.status(400).json({
         success: false,
         message: 'New password must be at least 6 characters long'
@@ -407,7 +407,7 @@ export const resetPassword: RequestHandler = async (req: ResetPasswordRequest, r
       });
     }
 
-    if (password.length < 6) {
+    if (password.length < 8) {
       return res.status(400).json({
         success: false,
         message: 'Password must be at least 6 characters long'
