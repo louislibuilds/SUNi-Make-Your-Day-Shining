@@ -64,6 +64,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
           <div className="relative">
             <div className="relative z-10 rounded-2xl overflow-hidden border border-black/10">
               <ImageWithFallback
+                src="/categories/hero.webp"
                 seed="suni-hero"
                 label="SUNi"
                 alt="SUNi storefront preview"

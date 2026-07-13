@@ -54,13 +54,15 @@ export default function Cart({ onNavigate }: CartPageProps) {
                 {items.map((item) => (
                   <Card key={item.key}>
                     <CardContent className="flex items-center gap-4 p-4">
-                      <ImageWithFallback
-                        src={item.image}
-                        seed={item.id}
-                        label={item.name}
-                        alt={item.name}
-                        className="w-20 h-20 rounded-lg object-cover"
-                      />
+                      <div className="w-20 h-20 shrink-0 rounded-lg overflow-hidden bg-muted">
+                        <ImageWithFallback
+                          src={item.image}
+                          seed={item.id}
+                          label={item.name}
+                          alt={item.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
                       <div className="flex-1 min-w-0">
                         <h3 className="font-medium truncate">{item.name}</h3>
                         {item.variant && (
@@ -71,7 +73,7 @@ export default function Cart({ onNavigate }: CartPageProps) {
                         </p>
                       </div>
 
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 shrink-0">
                         <Button
                           variant="outline"
                           size="icon"
@@ -93,7 +95,7 @@ export default function Cart({ onNavigate }: CartPageProps) {
                         </Button>
                       </div>
 
-                      <div className="text-right w-24">
+                      <div className="text-right w-24 shrink-0">
                         <p className="font-semibold">
                           ${(item.price * item.quantity).toFixed(2)}
                         </p>

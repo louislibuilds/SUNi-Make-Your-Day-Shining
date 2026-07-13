@@ -12,25 +12,29 @@ const categories = [
     id: 1,
     name: "Home & Living",
     description: "Transform your space with beautiful, functional pieces",
-    productCount: 145
+    productCount: 145,
+    image: "/categories/home-living.webp"
   },
   {
     id: 2,
     name: "Kitchen Essentials",
     description: "Make cooking a joyful, efficient experience",
-    productCount: 89
+    productCount: 89,
+    image: "/categories/kitchen-essentials.webp"
   },
   {
     id: 3,
     name: "Wellness & Self-Care",
     description: "Nurture your mind, body, and spirit daily",
-    productCount: 67
+    productCount: 67,
+    image: "/categories/wellness-self-care.webp"
   },
   {
     id: 4,
     name: "Work & Productivity",
     description: "Create an inspiring workspace that motivates",
-    productCount: 123
+    productCount: 123,
+    image: "/categories/work-productivity.webp"
   }
 ];
 
@@ -56,6 +60,7 @@ export function Categories({ onNavigate }: CategoriesProps) {
             >
               <div className="relative h-48 overflow-hidden">
                 <ImageWithFallback 
+                  src={category.image}
                   seed={`category-${category.id}`}
                   label={category.name}
                   alt={category.name}
@@ -122,6 +127,7 @@ export function Categories({ onNavigate }: CategoriesProps) {
               </div>
               <div className="h-80 lg:h-full">
                 <ImageWithFallback
+                  src="/categories/new-arrivals.webp"
                   seed="new-arrivals"
                   label="New Arrivals"
                   alt="New arrivals"

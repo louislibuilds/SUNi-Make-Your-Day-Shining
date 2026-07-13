@@ -545,14 +545,16 @@ export default function Checkout({ onNavigate, isLoggedIn, userEmail }: Checkout
                   {/* Cart Items */}
                   {cartItems.map((item) => (
                     <div key={item.key} className="flex items-center space-x-3">
-                      <ImageWithFallback
-                        src={item.image}
-                        seed={item.id}
-                        label={item.name}
-                        alt={item.name}
-                        className="w-16 h-16 rounded-lg object-cover"
-                      />
-                      <div className="flex-1">
+                      <div className="w-16 h-16 shrink-0 rounded-lg overflow-hidden bg-muted">
+                        <ImageWithFallback
+                          src={item.image}
+                          seed={item.id}
+                          label={item.name}
+                          alt={item.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="flex-1 min-w-0">
                         <h4 className="font-medium text-sm">{item.name}</h4>
                         <p className="text-sm text-muted-foreground">
                           Qty: {item.quantity}
