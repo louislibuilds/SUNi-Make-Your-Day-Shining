@@ -1,5 +1,5 @@
 # Local MongoDB only — optional for development.
-# API and client run via npm (see docs/development.md).
+# API and client run via npm in server/ and client/.
 
 services:
   mongodb:

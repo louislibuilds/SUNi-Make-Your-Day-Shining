@@ -18,13 +18,9 @@ A calm, curated lifestyle storefront — built on the MERN stack with a clean Re
 ![Express](https://img.shields.io/badge/Express-000000?logo=express&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-47a248?logo=mongodb&logoColor=white)
 
-**[Quick start](#-quick-start)** · **[Documentation](#-documentation)** · **[Roadmap](#-status--roadmap)**
+**[Highlights](#-highlights)** · **[Quick start](#-quick-start)** · **[Status](#-status)**
 
 </div>
-
-<!-- Drop a hero screenshot at docs/assets/screenshots/home.png and uncomment:
-<p align="center"><img src="docs/assets/screenshots/home.png" alt="SUNi storefront" width="820"/></p>
--->
 
 ---
 
@@ -32,67 +28,55 @@ A calm, curated lifestyle storefront — built on the MERN stack with a clean Re
 
 | | |
 |---|---|
-| 🛍️ **Curated storefront** | Calm, uncluttered catalog with categories, filtering, and product detail views. |
+| 🛍️ **Curated storefront** | Calm catalog with categories, filtering, and product views. |
 | 🔐 **Typed API** | Express + Mongoose with JWT auth for users, catalog, cart, and checkout. |
 | 💳 **Checkout ready** | Stripe payment flow wired into the order pipeline. |
-| 🔄 **Offline-friendly UI** | Frontend calls the live API when reachable, and falls back to local mock data otherwise. |
-| ✅ **CI on every push** | GitHub Actions runs build and tests to keep `main` green. |
+| 🔄 **Offline-friendly UI** | Calls the live API when reachable; falls back to mock catalog otherwise. |
+| ✅ **CI on every push** | GitHub Actions — server tests + client build. |
 
 ## 🚀 Quick start
 
-**Prerequisites:** Node.js 20+ and MongoDB ([Docker optional](docs/development.md)).
+**Prerequisites:** Node.js 20+, MongoDB (optional: `docker compose up -d`)
 
 ```bash
 git clone https://github.com/louislibuilds/SUNi-Make-Your-Day-Shining.git
 cd SUNi-Make-Your-Day-Shining
 
-docker compose up -d                                  # optional — local MongoDB
+docker compose up -d          # optional — local MongoDB
 cd server && cp env.example .env && npm install && npm run dev
 
-cd client && npm install && npm run dev               # in a new terminal
+cd client && npm install && npm run dev   # new terminal
 ```
 
 | Service | URL |
 |---------|-----|
 | 🛒 Storefront | http://localhost:3000 |
 | 🔌 API | http://localhost:5000 |
-| ❤️ Health check | http://localhost:5000/health |
+| ❤️ Health | http://localhost:5000/health |
 
-> The storefront runs without a backend — it automatically serves mock catalog data when the API is offline.
+> The storefront runs without a backend — mock catalog data is served when the API is offline.
 
-Full walkthrough: **[docs/development.md](docs/development.md)**
+## 🧱 Stack
 
-## 📚 Documentation
-
-| Guide | What's inside |
-|-------|---------------|
-| [Development](docs/development.md) | Local environment, env vars, seed data |
-| [Deployment](docs/deployment.md) | MongoDB Atlas · Railway · Vercel |
-| [Architecture](docs/architecture.md) | System design and repo layout |
-| [Contributing](docs/contributing.md) | Branches, commits, and PRs |
-
-## 🧱 Tech stack
-
-**Frontend** — React 18 · TypeScript · Vite · Tailwind · Zustand
+**Frontend** — React 18 · TypeScript · Vite · Tailwind · Zustand  
 **Backend** — Express · Mongoose · MongoDB · JWT · Stripe
-
-## 🗂️ Project layout
 
 ```text
 client/     React storefront (Vite)
 server/     Express API
-docs/       Contributor documentation
 ```
 
-## 🧭 Status & roadmap
+## 🧭 Status
 
-SUNi is under active development.
+Personal side project — under active development.
 
 - ✅ Backend routes for auth, catalog, cart, and checkout
 - ✅ Storefront UI with API-first data and mock fallback
 - 🚧 Full frontend ↔ API integration across all pages
-- 🚧 Admin CMS for product management (create / edit / stock)
-- 🔜 Staging deployment (Atlas + Railway + Vercel)
+- 🚧 Admin CMS for product management
+- 🔜 Staging deployment
+
+**Demo:** _coming soon_
 
 ## 📄 License
 
