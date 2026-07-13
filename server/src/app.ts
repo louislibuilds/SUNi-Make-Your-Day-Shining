@@ -26,9 +26,23 @@ export const createApp = () => {
 
   app.disable('x-powered-by');
   app.use(securityHeaders);
+
+  // Allow one or more comma-separated origins via CLIENT_URL,
+  // e.g. "http://localhost:3000,https://suni.vercel.app".
+  const allowedOrigins = (process.env.CLIENT_URL || 'http://localhost:3000')
+    .split(',')
+    .map((o) => o.trim())
+    .filter(Boolean);
+
   app.use(
     cors({
-      origin: process.env.CLIENT_URL || 'http://localhost:5176',
+      origin: (origin, callback) => {
+        // Allow non-browser clients (curl, health checks) with no Origin header.
+        if (!origin || allowedOrigins.includes(origin)) {
+          return callback(null, true);
+        }
+        return callback(new Error(`Origin ${origin} not allowed by CORS`));
+      },
       credentials: true,
     })
   );
