@@ -53,7 +53,7 @@ export default function Cart({ onNavigate }: CartPageProps) {
               <div className="lg:col-span-2 space-y-4">
                 {items.map((item) => (
                   <Card key={item.key}>
-                    <CardContent className="flex items-center gap-4 p-4">
+                    <CardContent className="flex flex-wrap items-center gap-4 p-4">
                       <div className="w-20 h-20 shrink-0 rounded-lg overflow-hidden bg-muted">
                         <ImageWithFallback
                           src={item.image}
@@ -63,7 +63,7 @@ export default function Cart({ onNavigate }: CartPageProps) {
                           className="w-full h-full object-cover"
                         />
                       </div>
-                      <div className="flex-1 min-w-0">
+                      <div className="flex-1 min-w-[8rem]">
                         <h3 className="font-medium truncate">{item.name}</h3>
                         {item.variant && (
                           <p className="text-sm text-muted-foreground">{item.variant}</p>

@@ -140,8 +140,8 @@ export function Header({
             >
               <ShoppingCart className="h-5 w-5" />
               {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 h-4 min-w-4 px-1 rounded-full bg-orange-500 text-white text-xs flex items-center justify-center">
-                  {cartCount}
+                <span className="absolute -top-1 -right-1 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-orange-500 px-1 text-[10px] font-semibold leading-none text-white">
+                  {cartCount > 9 ? '9+' : cartCount}
                 </span>
               )}
             </Button>
