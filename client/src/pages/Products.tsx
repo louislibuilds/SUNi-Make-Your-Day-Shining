@@ -1,6 +1,9 @@
 import { ProductCatalog } from '../components/ProductCatalog';
 
-export default function Products() {
-  return <ProductCatalog selectedCategory="All Products" />;
+interface ProductsProps {
+  onNavigate: (page: string) => void;
 }
 
+export default function Products({ onNavigate }: ProductsProps) {
+  return <ProductCatalog selectedCategory="All Products" onNavigate={onNavigate} />;
+}

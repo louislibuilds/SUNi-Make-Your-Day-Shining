@@ -14,16 +14,24 @@ import { ImageWithFallback } from './ui/image-with-fallback';
 import { categories, brands, type Product } from '../data/products';
 import { useCatalogProducts } from '../hooks/useCatalogProducts';
 import { useCartStore } from '../store/cartStore';
+import { useProductDetailStore } from '../store/productDetailStore';
 
 interface ProductCatalogProps {
   selectedCategory?: string;
+  onNavigate?: (page: string) => void;
 }
 
-export function ProductCatalog({ selectedCategory = "All Products" }: ProductCatalogProps) {
+export function ProductCatalog({ selectedCategory = "All Products", onNavigate }: ProductCatalogProps) {
   const { products, source, loading } = useCatalogProducts({
     category: selectedCategory !== 'All Products' ? selectedCategory : undefined,
   });
   const addItem = useCartStore((state) => state.addItem);
+  const setSelectedProduct = useProductDetailStore((state) => state.setSelectedProduct);
+
+  const openDetail = (product: Product) => {
+    setSelectedProduct(product);
+    onNavigate?.('product-detail');
+  };
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('featured');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
@@ -212,7 +220,15 @@ export function ProductCatalog({ selectedCategory = "All Products" }: ProductCat
 
   const ProductCard = ({ product }: { product: Product }) => (
     <Card className="group cursor-pointer border-0 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
-      <div className="relative">
+      <div
+        className="relative"
+        onClick={() => openDetail(product)}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') openDetail(product);
+        }}
+      >
         <ImageWithFallback 
           src={product.image}
           seed={product.id}
@@ -237,6 +253,7 @@ export function ProductCatalog({ selectedCategory = "All Products" }: ProductCat
           variant="ghost"
           size="icon"
           className="absolute top-3 right-3 bg-white/90 hover:bg-white h-8 w-8"
+          onClick={(e) => e.stopPropagation()}
         >
           <Heart className="h-4 w-4" />
         </Button>
@@ -244,7 +261,10 @@ export function ProductCatalog({ selectedCategory = "All Products" }: ProductCat
       
       <CardContent className={`space-y-4 ${viewMode === 'grid' ? 'p-6' : 'p-4'}`}>
         <div>
-          <h3 className="font-semibold group-hover:text-orange-600 transition-colors">
+          <h3
+            className="font-semibold group-hover:text-orange-600 transition-colors cursor-pointer"
+            onClick={() => openDetail(product)}
+          >
             {product.name}
           </h3>
           <p className="text-sm text-muted-foreground mt-1">{product.brand}</p>

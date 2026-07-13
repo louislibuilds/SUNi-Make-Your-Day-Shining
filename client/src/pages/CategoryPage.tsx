@@ -5,6 +5,7 @@ import { ArrowRight } from 'lucide-react';
 
 interface CategoryPageProps {
   category: string;
+  onNavigate: (page: string) => void;
 }
 
 const categoryInfo = {
@@ -65,11 +66,11 @@ const categoryInfo = {
   }
 };
 
-export default function CategoryPage({ category }: CategoryPageProps) {
+export default function CategoryPage({ category, onNavigate }: CategoryPageProps) {
   const info = categoryInfo[category as keyof typeof categoryInfo];
 
   if (!info) {
-    return <ProductCatalog selectedCategory={category} />;
+    return <ProductCatalog selectedCategory={category} onNavigate={onNavigate} />;
   }
 
   return (
@@ -134,7 +135,7 @@ export default function CategoryPage({ category }: CategoryPageProps) {
       </section>
 
       {/* Products Catalog */}
-      <ProductCatalog selectedCategory={category} />
+      <ProductCatalog selectedCategory={category} onNavigate={onNavigate} />
     </div>
   );
 }

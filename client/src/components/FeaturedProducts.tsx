@@ -5,6 +5,8 @@ import { Badge } from './ui/badge';
 import { ImageWithFallback } from './ui/image-with-fallback';
 import { useCatalogProducts } from '../hooks/useCatalogProducts';
 import { useCartStore } from '../store/cartStore';
+import { useProductDetailStore } from '../store/productDetailStore';
+import type { Product } from '../data/products';
 
 interface FeaturedProductsProps {
   onNavigate: (page: string) => void;
@@ -13,6 +15,12 @@ interface FeaturedProductsProps {
 export function FeaturedProducts({ onNavigate }: FeaturedProductsProps) {
   const { products, loading } = useCatalogProducts({ featured: true, limit: 4 });
   const addItem = useCartStore((state) => state.addItem);
+  const setSelectedProduct = useProductDetailStore((state) => state.setSelectedProduct);
+
+  const openDetail = (product: Product) => {
+    setSelectedProduct(product);
+    onNavigate('product-detail');
+  };
 
   return (
     <section className="py-20 bg-white">
@@ -32,7 +40,15 @@ export function FeaturedProducts({ onNavigate }: FeaturedProductsProps) {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {products.map((product) => (
               <Card key={product.id} className="group cursor-pointer border-0 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
-                <div className="relative">
+                <div
+                  className="relative"
+                  onClick={() => openDetail(product)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') openDetail(product);
+                  }}
+                >
                   <ImageWithFallback
                     src={product.image}
                     seed={product.id}
@@ -52,6 +68,7 @@ export function FeaturedProducts({ onNavigate }: FeaturedProductsProps) {
                     variant="ghost"
                     size="icon"
                     className="absolute top-3 right-3 bg-white/90 hover:bg-white h-8 w-8"
+                    onClick={(e) => e.stopPropagation()}
                   >
                     <Heart className="h-4 w-4" />
                   </Button>
@@ -59,7 +76,10 @@ export function FeaturedProducts({ onNavigate }: FeaturedProductsProps) {
 
                 <CardContent className="p-6 space-y-4">
                   <div>
-                    <h3 className="font-semibold text-lg group-hover:text-orange-600 transition-colors">
+                    <h3
+                      className="font-semibold text-lg group-hover:text-orange-600 transition-colors cursor-pointer"
+                      onClick={() => openDetail(product)}
+                    >
                       {product.name}
                     </h3>
                     <div className="flex items-center gap-2 mt-2">

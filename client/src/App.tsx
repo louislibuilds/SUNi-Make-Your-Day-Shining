@@ -11,6 +11,7 @@ import CategoryPage from './pages/CategoryPage';
 import Admin from './pages/Admin';
 import Checkout from './pages/Checkout';
 import Cart from './pages/Cart';
+import ProductDetail from './pages/ProductDetail';
 import Orders from './pages/Orders';
 import Profile from './pages/Profile';
 import { useAuthStore } from './store/authStore';
@@ -56,14 +57,17 @@ export default function App() {
         return <Home onNavigate={handleNavigate} />;
 
       case 'products':
-        return <Products />;
+        return <Products onNavigate={handleNavigate} />;
+
+      case 'product-detail':
+        return <ProductDetail onNavigate={handleNavigate} />;
 
       case 'category-home-living':
       case 'category-kitchen-essentials':
       case 'category-work-productivity':
       case 'category-wellness-self-care':
       case 'category-garden-outdoor':
-        return <CategoryPage category={getCategoryFromPage(currentPage)} />;
+        return <CategoryPage category={getCategoryFromPage(currentPage)} onNavigate={handleNavigate} />;
 
       case 'categories':
         return <CategoriesPage onNavigate={handleNavigate} />;
