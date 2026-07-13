@@ -10,7 +10,7 @@ import { Checkbox } from '../components/ui/checkbox';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
 import { ImageWithFallback } from '../components/ui/image-with-fallback';
-import { type CartItem } from '../data/users';
+import { useCartStore } from '../store/cartStore';
 
 interface CheckoutPageProps {
   onNavigate: (page: string) => void;
@@ -18,29 +18,9 @@ interface CheckoutPageProps {
   userEmail?: string;
 }
 
-// Mock cart data
-const mockCart: CartItem[] = [
-  {
-    productId: 1,
-    name: 'Luminous Home Diffuser',
-    price: 89.99,
-    quantity: 1,
-    image: '',
-    variant: 'White',
-    inStock: true
-  },
-  {
-    productId: 3,
-    name: 'Smart Storage Organizer',
-    price: 34.99,
-    quantity: 2,
-    image: '',
-    variant: 'Clear',
-    inStock: true
-  }
-];
-
 export default function Checkout({ onNavigate, isLoggedIn, userEmail }: CheckoutPageProps) {
+  const cartItems = useCartStore((state) => state.items);
+  const placeOrder = useCartStore((state) => state.placeOrder);
   const [currentStep, setCurrentStep] = useState<'info' | 'shipping' | 'payment' | 'review'>('info');
   const [checkoutAs, setCheckoutAs] = useState<'guest' | 'member'>(isLoggedIn ? 'member' : 'guest');
   const [paymentMethod, setPaymentMethod] = useState('card');
@@ -66,7 +46,7 @@ export default function Checkout({ onNavigate, isLoggedIn, userEmail }: Checkout
     subscribeNewsletter: false
   });
 
-  const subtotal = mockCart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const tax = subtotal * 0.08;
   const shippingCost = shippingMethod === 'express' ? 19.99 : 9.99;
   const total = subtotal + tax + shippingCost;
@@ -424,8 +404,11 @@ export default function Checkout({ onNavigate, isLoggedIn, userEmail }: Checkout
             <div>
               <h4 className="font-medium mb-2">Payment Method</h4>
               <p className="text-sm text-muted-foreground">
-                {paymentMethod === 'card' ? `?�••�??�••�??�••�?${formData.cardNumber.slice(-4)}` : 
-                 paymentMethod === 'paypal' ? 'PayPal' : 'Apple Pay'}
+                {paymentMethod === 'card'
+                  ? `Card ending in ${formData.cardNumber.slice(-4) || '••••'}`
+                  : paymentMethod === 'paypal'
+                  ? 'PayPal'
+                  : 'Apple Pay'}
               </p>
             </div>
           </div>
@@ -466,7 +449,24 @@ export default function Checkout({ onNavigate, isLoggedIn, userEmail }: Checkout
     if (currentIndex < steps.length - 1) {
       setCurrentStep(steps[currentIndex + 1] as any);
     } else {
-      // Place order
+      placeOrder({
+        email: formData.email,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        address1: formData.address1,
+        address2: formData.address2,
+        city: formData.city,
+        state: formData.state,
+        zipCode: formData.zipCode,
+        country: formData.country,
+        phone: formData.phone,
+        shippingMethod,
+        paymentMethod,
+        subtotal,
+        tax,
+        shipping: shippingCost,
+        total,
+      });
       onNavigate('order-confirmation');
     }
   };
@@ -477,9 +477,28 @@ export default function Checkout({ onNavigate, isLoggedIn, userEmail }: Checkout
     if (currentIndex > 0) {
       setCurrentStep(steps[currentIndex - 1] as any);
     } else {
-      onNavigate('products');
+      onNavigate('cart');
     }
   };
+
+  if (cartItems.length === 0) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-50 to-white">
+        <div className="container mx-auto px-4 py-20 text-center">
+          <h1 className="text-3xl font-bold mb-3">Your cart is empty</h1>
+          <p className="text-muted-foreground mb-6">
+            Add a few products before heading to checkout.
+          </p>
+          <Button
+            onClick={() => onNavigate('products')}
+            className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600"
+          >
+            Browse Products
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-50 to-white">
@@ -524,11 +543,11 @@ export default function Checkout({ onNavigate, isLoggedIn, userEmail }: Checkout
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {/* Cart Items */}
-                  {mockCart.map((item) => (
-                    <div key={item.productId} className="flex items-center space-x-3">
+                  {cartItems.map((item) => (
+                    <div key={item.key} className="flex items-center space-x-3">
                       <ImageWithFallback
                         src={item.image}
-                        seed={item.productId ?? item.name}
+                        seed={item.id}
                         label={item.name}
                         alt={item.name}
                         className="w-16 h-16 rounded-lg object-cover"
@@ -536,7 +555,8 @@ export default function Checkout({ onNavigate, isLoggedIn, userEmail }: Checkout
                       <div className="flex-1">
                         <h4 className="font-medium text-sm">{item.name}</h4>
                         <p className="text-sm text-muted-foreground">
-                          Qty: {item.quantity} {item.variant && `??${item.variant}`}
+                          Qty: {item.quantity}
+                          {item.variant ? ` · ${item.variant}` : ''}
                         </p>
                         <p className="font-medium">${(item.price * item.quantity).toFixed(2)}</p>
                       </div>

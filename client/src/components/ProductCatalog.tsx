@@ -13,6 +13,7 @@ import { Separator } from './ui/separator';
 import { ImageWithFallback } from './ui/image-with-fallback';
 import { categories, brands, type Product } from '../data/products';
 import { useCatalogProducts } from '../hooks/useCatalogProducts';
+import { useCartStore } from '../store/cartStore';
 
 interface ProductCatalogProps {
   selectedCategory?: string;
@@ -22,6 +23,7 @@ export function ProductCatalog({ selectedCategory = "All Products" }: ProductCat
   const { products, source, loading } = useCatalogProducts({
     category: selectedCategory !== 'All Products' ? selectedCategory : undefined,
   });
+  const addItem = useCartStore((state) => state.addItem);
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('featured');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
@@ -282,6 +284,7 @@ export function ProductCatalog({ selectedCategory = "All Products" }: ProductCat
         <Button 
           className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white"
           disabled={!product.inStock}
+          onClick={() => addItem(product)}
         >
           {product.inStock ? 'Add to Cart' : 'Out of Stock'}
         </Button>

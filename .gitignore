@@ -74,9 +74,8 @@ jspm_packages/
 # Nuxt.js build / generate output
 .nuxt
 
-# Gatsby files
+# Gatsby files (Vite uses public/ as committed static assets, so do not ignore it)
 .cache/
-public
 
 # Storybook build outputs
 .out

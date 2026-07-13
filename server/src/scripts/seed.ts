@@ -4,7 +4,8 @@ import { User, UserRole } from '../models/User';
 import { Product, ProductCategory, ProductStatus, ProductType } from '../models/Product';
 
 const LEGACY_SKUS = ['BT-CLSC-001', 'SNORK-EX-1'];
-const PLACEHOLDER_IMAGE = 'https://placehold.co/600x400';
+// Served from the frontend `public/products/<slug>.webp` (Vercel / Vite dev).
+const PRODUCT_IMAGE_BASE = '/products';
 
 type SeedProduct = {
   name: string;
@@ -206,7 +207,7 @@ function buildProductDoc(item: SeedProduct) {
       allowBackorder: false,
     },
     images: {
-      primary: PLACEHOLDER_IMAGE,
+      primary: `${PRODUCT_IMAGE_BASE}/${toSlug(item.name)}.webp`,
       gallery: [],
     },
     seo: {

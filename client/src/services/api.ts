@@ -36,12 +36,21 @@ api.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error.response?.status === 401) {
-      // Handle unauthorized access
+    const status = error.response?.status;
+    const url: string = error.config?.url ?? '';
+    const isAuthEndpoint = url.includes('/auth/');
+
+    // A 401 on a non-auth endpoint means the session expired. Clear it and
+    // send the user back to the app root. The app uses in-app (state) routing,
+    // so we must NOT navigate to a non-existent path like `/login` (that would
+    // hit the host's 404 page). Auth endpoints handle their own errors.
+    if (status === 401 && !isAuthEndpoint) {
       localStorage.removeItem('auth-storage');
-      window.location.href = '/login';
+      if (window.location.pathname !== '/') {
+        window.location.href = '/';
+      }
     }
-    
+
     return Promise.reject(error);
   }
 );

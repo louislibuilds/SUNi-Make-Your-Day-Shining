@@ -4,6 +4,7 @@ import { Card, CardContent } from './ui/card';
 import { Badge } from './ui/badge';
 import { ImageWithFallback } from './ui/image-with-fallback';
 import { useCatalogProducts } from '../hooks/useCatalogProducts';
+import { useCartStore } from '../store/cartStore';
 
 interface FeaturedProductsProps {
   onNavigate: (page: string) => void;
@@ -11,6 +12,7 @@ interface FeaturedProductsProps {
 
 export function FeaturedProducts({ onNavigate }: FeaturedProductsProps) {
   const { products, loading } = useCatalogProducts({ featured: true, limit: 4 });
+  const addItem = useCartStore((state) => state.addItem);
 
   return (
     <section className="py-20 bg-white">
@@ -84,7 +86,10 @@ export function FeaturedProducts({ onNavigate }: FeaturedProductsProps) {
                     )}
                   </div>
 
-                  <Button className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white">
+                  <Button
+                    className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white"
+                    onClick={() => addItem(product)}
+                  >
                     Add to Cart
                   </Button>
                 </CardContent>

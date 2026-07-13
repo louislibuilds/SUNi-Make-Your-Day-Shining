@@ -23,6 +23,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../components/ui/dialog';
 import { ImageWithFallback } from '../components/ui/image-with-fallback';
 import { mockOrders, type Order } from '../data/users';
+import { useCartStore } from '../store/cartStore';
 
 interface OrderPageProps {
   onNavigate: (page: string) => void;
@@ -32,8 +33,9 @@ interface OrderPageProps {
 }
 
 export default function Orders({ onNavigate, isLoggedIn, orderType }: OrderPageProps) {
+  const lastOrder = useCartStore((state) => state.lastOrder);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(
-    orderType === 'confirmation' ? mockOrders[0] : null
+    orderType === 'confirmation' ? lastOrder ?? mockOrders[0] : null
   );
   const [trackingEmail, setTrackingEmail] = useState('');
   const [trackingOrderId, setTrackingOrderId] = useState('');

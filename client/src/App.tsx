@@ -10,6 +10,7 @@ import CategoriesPage from './pages/Categories';
 import CategoryPage from './pages/CategoryPage';
 import Admin from './pages/Admin';
 import Checkout from './pages/Checkout';
+import Cart from './pages/Cart';
 import Orders from './pages/Orders';
 import Profile from './pages/Profile';
 import { useAuthStore } from './store/authStore';
@@ -78,6 +79,9 @@ export default function App() {
           return null;
         }
         return <Admin onNavigate={handleNavigate} />;
+
+      case 'cart':
+        return <Cart onNavigate={handleNavigate} />;
 
       case 'checkout':
         return (

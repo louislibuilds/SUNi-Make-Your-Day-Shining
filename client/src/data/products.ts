@@ -209,6 +209,20 @@ export const products: Product[] = [
   }
 ];
 
+// Map each product to its generated image in `public/products/<slug>.webp`.
+// The slug mirrors the backend seed (server/src/scripts/seed.ts) so mock and
+// API data resolve to the same asset.
+function toImageSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
+for (const product of products) {
+  product.image = `/products/${toImageSlug(product.name)}.webp`;
+}
+
 export const categories = [
   "All Products",
   "Home & Living", 

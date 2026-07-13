@@ -1,6 +1,7 @@
 import { Search, ShoppingCart, Menu, User } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
+import { useCartStore } from '../store/cartStore';
 
 interface HeaderProps {
   currentPage: string;
@@ -21,6 +22,10 @@ export function Header({
   onLogin,
   onLogout 
 }: HeaderProps) {
+  const cartCount = useCartStore((state) =>
+    state.items.reduce((total, item) => total + item.quantity, 0),
+  );
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
       <div className="container mx-auto px-4">
@@ -130,12 +135,15 @@ export function Header({
               variant="ghost" 
               size="icon" 
               className="relative"
-              onClick={() => onNavigate('checkout')}
+              onClick={() => onNavigate('cart')}
+              title="Cart"
             >
               <ShoppingCart className="h-5 w-5" />
-              <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-orange-500 text-white text-xs flex items-center justify-center">
-                2
-              </span>
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -right-1 h-4 min-w-4 px-1 rounded-full bg-orange-500 text-white text-xs flex items-center justify-center">
+                  {cartCount}
+                </span>
+              )}
             </Button>
           </div>
         </div>
