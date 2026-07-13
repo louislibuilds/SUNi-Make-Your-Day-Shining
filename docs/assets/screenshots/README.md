@@ -1,9 +1,7 @@
 # Screenshots
 
-Add local demo captures for README and Assignment 3 figures:
+Add images here for the root README:
 
 - `home.png` — storefront home
 - `products.png` — catalog
-- `ci-green.png` — GitHub Actions passing run (also use for A3 Figure 3)
-
-After adding images, reference them from the root `README.md`.
+- `ci-green.png` — passing GitHub Actions run

@@ -23,6 +23,7 @@ interface CartState {
   updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
   setError: (error: string | null) => void;
+  calculateTotals: () => void;
 }
 
 export const useCartStore = create<CartState>()(

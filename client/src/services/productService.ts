@@ -1,5 +1,5 @@
 import api from './api';
-import { Product } from '../store/productStore';
+import type { Product } from '../store/productStore';
 
 export interface ProductFilters {
   category?: string;

@@ -1,7 +1,8 @@
 import { ArrowRight } from 'lucide-react';
 import { Card, CardContent } from './ui/card';
 import { Button } from './ui/button';
-import { ImageWithFallback } from './figma/ImageWithFallback';
+import { ImageWithFallback } from './ui/image-with-fallback';
+import { PRODUCT_PLACEHOLDER_IMAGE } from '../lib/media';
 
 interface CategoriesProps {
   onNavigate: (page: string) => void;
@@ -12,28 +13,28 @@ const categories = [
     id: 1,
     name: "Home & Living",
     description: "Transform your space with beautiful, functional pieces",
-    image: "https://images.unsplash.com/photo-1681557225327-e4e23744d667?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaW5pbWFsJTIwaG9tZSUyMGRlY29yfGVufDF8fHx8MTc1OTIwOTkxNXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+    image: PRODUCT_PLACEHOLDER_IMAGE,
     productCount: 145
   },
   {
     id: 2,
     name: "Kitchen Essentials",
     description: "Make cooking a joyful, efficient experience",
-    image: "https://images.unsplash.com/photo-1631677640738-65373fbd1f64?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxicmlnaHQlMjBraXRjaGVuJTIwcHJvZHVjdHN8ZW58MXx8fHwxNzU5MjA5OTE1fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+    image: PRODUCT_PLACEHOLDER_IMAGE,
     productCount: 89
   },
   {
     id: 3,
     name: "Wellness & Self-Care",
     description: "Nurture your mind, body, and spirit daily",
-    image: "https://images.unsplash.com/photo-1596773544141-798fc586f31e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3ZWxsbmVzcyUyMGxpZmVzdHlsZXxlbnwxfHx8fDE3NTkxNjk5ODZ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+    image: PRODUCT_PLACEHOLDER_IMAGE,
     productCount: 67
   },
   {
     id: 4,
     name: "Work & Productivity",
     description: "Create an inspiring workspace that motivates",
-    image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjB3b3Jrc3BhY2V8ZW58MXx8fHwxNzU5MjA5OTE1fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+    image: PRODUCT_PLACEHOLDER_IMAGE,
     productCount: 123
   }
 ];
@@ -124,8 +125,8 @@ export function Categories({ onNavigate }: CategoriesProps) {
                 </div>
               </div>
               <div className="h-80 lg:h-full">
-                <ImageWithFallback 
-                  src="https://images.unsplash.com/photo-1572635148818-ef6fd45eb394?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBsaWZlc3R5bGUlMjBwcm9kdWN0c3xlbnwxfHx8fDE3NTkxMDI2ODd8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                <ImageWithFallback
+                  src={PRODUCT_PLACEHOLDER_IMAGE}
                   alt="New arrivals"
                   className="w-full h-full object-cover"
                 />

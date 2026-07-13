@@ -156,7 +156,7 @@ export const mockOrders: Order[] = [
         name: 'Luminous Home Diffuser',
         price: 89.99,
         quantity: 1,
-        image: 'https://images.unsplash.com/photo-1757774636743-e5235c608fd0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjbGVhbiUyMGhvbWUlMjBhY2Nlc3Nvcmllc3xlbnwxfHx8fDE3NTkyMDk5MTR8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
+        image: ''
       }
     ],
     subtotal: 89.99,
@@ -180,7 +180,7 @@ export const mockOrders: Order[] = [
         name: 'Minimalist Ceramic Vase Set',
         price: 45.99,
         quantity: 2,
-        image: 'https://images.unsplash.com/photo-1681557225327-e4e23744d667?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaW5pbWFsJTIwaG9tZSUyMGRlY29yfGVufDF8fHx8MTc1OTIwOTkxNXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
+        image: ''
       }
     ],
     subtotal: 91.98,

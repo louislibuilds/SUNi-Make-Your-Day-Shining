@@ -1,5 +1,5 @@
 import api from './api';
-import { Payment, PaymentMethod } from '../store/paymentStore';
+import type { Payment, PaymentMethod } from '../store/paymentStore';
 
 export interface CreatePaymentRequest {
   orderId: string;

@@ -1,5 +1,5 @@
 import api from './api';
-import { Order, OrderItem, ShippingAddress } from '../store/orderStore';
+import type { Order, OrderItem, ShippingAddress } from '../store/orderStore';
 
 export interface CreateOrderRequest {
   items: OrderItem[];

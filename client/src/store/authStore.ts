@@ -46,7 +46,7 @@ export const useAuthStore = create<AuthState>()(
             id: '1',
             name: 'John Doe',
             email: email,
-            avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9maWxlJTIwcGhvdG98ZW58MXx8fHwxNzU5MjA5OTE4fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+            avatar: '',
             role: 'user'
           };
           

@@ -125,5 +125,5 @@ test-*.ts
 # Reference files (local only)
 ref/
 
-# Archived documentation (local only)
-docs/archive/
+# Private planning docs (local / AI collaboration only)
+internal-docs/

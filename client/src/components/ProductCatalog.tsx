@@ -10,14 +10,18 @@ import { Label } from './ui/label';
 import { Slider } from './ui/slider';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet';
 import { Separator } from './ui/separator';
-import { ImageWithFallback } from './figma/ImageWithFallback';
-import { products, categories, brands, priceRanges, Product } from '../data/products';
+import { ImageWithFallback } from './ui/image-with-fallback';
+import { categories, brands, type Product } from '../data/products';
+import { useCatalogProducts } from '../hooks/useCatalogProducts';
 
 interface ProductCatalogProps {
   selectedCategory?: string;
 }
 
 export function ProductCatalog({ selectedCategory = "All Products" }: ProductCatalogProps) {
+  const { products, source, loading } = useCatalogProducts({
+    category: selectedCategory !== 'All Products' ? selectedCategory : undefined,
+  });
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('featured');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
@@ -88,7 +92,7 @@ export function ProductCatalog({ selectedCategory = "All Products" }: ProductCat
     }
 
     return filtered;
-  }, [searchQuery, sortBy, selectedCategories, selectedBrands, priceRange, showInStockOnly, showNewOnly]);
+  }, [products, searchQuery, sortBy, selectedCategories, selectedBrands, priceRange, showInStockOnly, showNewOnly]);
 
   const handleCategoryChange = (category: string, checked: boolean) => {
     if (category === "All Products") {
@@ -187,7 +191,7 @@ export function ProductCatalog({ selectedCategory = "All Products" }: ProductCat
             <Checkbox
               id="in-stock"
               checked={showInStockOnly}
-              onCheckedChange={setShowInStockOnly}
+              onCheckedChange={(checked) => setShowInStockOnly(checked === true)}
             />
             <Label htmlFor="in-stock" className="text-sm">In Stock Only</Label>
           </div>
@@ -195,7 +199,7 @@ export function ProductCatalog({ selectedCategory = "All Products" }: ProductCat
             <Checkbox
               id="new-products"
               checked={showNewOnly}
-              onCheckedChange={setShowNewOnly}
+              onCheckedChange={(checked) => setShowNewOnly(checked === true)}
             />
             <Label htmlFor="new-products" className="text-sm">New Products</Label>
           </div>
@@ -293,6 +297,9 @@ export function ProductCatalog({ selectedCategory = "All Products" }: ProductCat
           </h1>
           <p className="text-xl text-muted-foreground">
             Discover products that make everyday shining
+            {source === 'mock' && (
+              <span className="block text-sm mt-1 text-muted-foreground/80">Showing local demo catalog (API offline)</span>
+            )}
           </p>
         </div>
 
@@ -390,7 +397,9 @@ export function ProductCatalog({ selectedCategory = "All Products" }: ProductCat
               </p>
             </div>
 
-            {filteredAndSortedProducts.length === 0 ? (
+            {loading ? (
+              <p className="text-center text-muted-foreground py-16">Loading products…</p>
+            ) : filteredAndSortedProducts.length === 0 ? (
               <div className="text-center py-16">
                 <div className="text-6xl mb-4">🔍</div>
                 <h3 className="text-2xl font-semibold mb-2">No products found</h3>

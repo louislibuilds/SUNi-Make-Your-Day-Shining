@@ -9,7 +9,7 @@ import { RadioGroup, RadioGroupItem } from '../components/ui/radio-group';
 import { Checkbox } from '../components/ui/checkbox';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
-import { ImageWithFallback } from '../components/figma/ImageWithFallback';
+import { ImageWithFallback } from '../components/ui/image-with-fallback';
 import { type CartItem } from '../data/users';
 
 interface CheckoutPageProps {
@@ -25,7 +25,7 @@ const mockCart: CartItem[] = [
     name: 'Luminous Home Diffuser',
     price: 89.99,
     quantity: 1,
-    image: 'https://images.unsplash.com/photo-1757774636743-e5235c608fd0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjbGVhbiUyMGhvbWUlMjBhY2Nlc3Nvcmllc3xlbnwxfHx8fDE3NTkyMDk5MTR8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+    image: '',
     variant: 'White',
     inStock: true
   },
@@ -34,7 +34,7 @@ const mockCart: CartItem[] = [
     name: 'Smart Storage Organizer',
     price: 34.99,
     quantity: 2,
-    image: 'https://images.unsplash.com/photo-1687953413905-731f620177ae?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxob21lJTIwc3RvcmFnZSUyMHNvbHV0aW9uc3xlbnwxfHx8fDE3NTkyMTQ4MzB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+    image: '',
     variant: 'Clear',
     inStock: true
   }
@@ -331,7 +331,7 @@ export default function Checkout({ onNavigate, isLoggedIn, userEmail }: Checkout
             </div>
             <div className="flex items-center space-x-3 p-4 border rounded-lg">
               <RadioGroupItem value="apple" id="apple" />
-              <div className="h-5 w-5 bg-black rounded flex items-center justify-center text-white text-xs">🍎</div>
+              <div className="h-5 w-5 bg-black rounded flex items-center justify-center text-white text-xs">??</div>
               <Label htmlFor="apple">Apple Pay</Label>
             </div>
           </RadioGroup>
@@ -424,7 +424,7 @@ export default function Checkout({ onNavigate, isLoggedIn, userEmail }: Checkout
             <div>
               <h4 className="font-medium mb-2">Payment Method</h4>
               <p className="text-sm text-muted-foreground">
-                {paymentMethod === 'card' ? `•••• •••• •••• ${formData.cardNumber.slice(-4)}` : 
+                {paymentMethod === 'card' ? `?�••�??�••�??�••�?${formData.cardNumber.slice(-4)}` : 
                  paymentMethod === 'paypal' ? 'PayPal' : 'Apple Pay'}
               </p>
             </div>
@@ -534,7 +534,7 @@ export default function Checkout({ onNavigate, isLoggedIn, userEmail }: Checkout
                       <div className="flex-1">
                         <h4 className="font-medium text-sm">{item.name}</h4>
                         <p className="text-sm text-muted-foreground">
-                          Qty: {item.quantity} {item.variant && `• ${item.variant}`}
+                          Qty: {item.quantity} {item.variant && `??${item.variant}`}
                         </p>
                         <p className="font-medium">${(item.price * item.quantity).toFixed(2)}</p>
                       </div>
