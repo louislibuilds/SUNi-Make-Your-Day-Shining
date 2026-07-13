@@ -1,0 +1,9 @@
+# Railway / Nixpacks — build TypeScript API in server/
+[phases.install]
+cmds = ["npm ci --include=dev"]
+
+[phases.build]
+cmds = ["npm run build"]
+
+[start]
+cmd = "npm start"
