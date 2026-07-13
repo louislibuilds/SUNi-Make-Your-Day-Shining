@@ -12,7 +12,7 @@ const categoryInfo = {
   "Home & Living": {
     title: "Home & Living",
     description: "Transform your space with beautiful, functional pieces that bring comfort and style to every room.",
-    image: "",
+    image: "/categories/home-living.webp",
     highlights: [
       "Handpicked for quality and style",
       "Sustainable and eco-friendly options",
@@ -23,7 +23,7 @@ const categoryInfo = {
   "Kitchen Essentials": {
     title: "Kitchen Essentials",
     description: "Make cooking a joyful, efficient experience with smart storage solutions and beautiful kitchen accessories.",
-    image: "",
+    image: "/categories/kitchen-essentials.webp",
     highlights: [
       "Smart organization solutions",
       "Premium materials and construction",
@@ -34,7 +34,7 @@ const categoryInfo = {
   "Work & Productivity": {
     title: "Work & Productivity", 
     description: "Create an inspiring workspace that motivates and enhances your daily productivity.",
-    image: "",
+    image: "/categories/work-productivity.webp",
     highlights: [
       "Ergonomic and functional design",
       "Premium materials for durability",
@@ -45,7 +45,7 @@ const categoryInfo = {
   "Wellness & Self-Care": {
     title: "Wellness & Self-Care",
     description: "Nurture your mind, body, and spirit with carefully curated wellness products for daily self-care rituals.",
-    image: "",
+    image: "/categories/wellness-self-care.webp",
     highlights: [
       "Natural and organic ingredients",
       "Aromatherapy and relaxation focused",
@@ -56,7 +56,7 @@ const categoryInfo = {
   "Garden & Outdoor": {
     title: "Garden & Outdoor",
     description: "Bring nature into your life with beautiful planters, gardening tools, and outdoor accessories.",
-    image: "",
+    image: "/categories/garden-outdoor.webp",
     highlights: [
       "Beginner-friendly tools and guides",
       "Weather-resistant materials",
