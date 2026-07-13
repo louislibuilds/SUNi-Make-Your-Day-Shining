@@ -9,6 +9,28 @@ import { resolveProductImage } from './media';
 
 export type DataSource = 'api' | 'mock';
 
+export const CATEGORY_SLUG_TO_LABEL: Record<string, string> = {
+  'home-living': 'Home & Living',
+  'kitchen-essentials': 'Kitchen Essentials',
+  'work-productivity': 'Work & Productivity',
+  'wellness-self-care': 'Wellness & Self-Care',
+  'garden-outdoor': 'Garden & Outdoor',
+};
+
+const CATEGORY_LABEL_TO_SLUG = Object.fromEntries(
+  Object.entries(CATEGORY_SLUG_TO_LABEL).map(([slug, label]) => [label, slug]),
+) as Record<string, string>;
+
+function formatCategoryLabel(category?: string): string {
+  if (!category) return 'Uncategorized';
+  return CATEGORY_SLUG_TO_LABEL[category] ?? category;
+}
+
+function categoryToSlug(category?: string): string | undefined {
+  if (!category || category === 'All Products') return undefined;
+  return CATEGORY_LABEL_TO_SLUG[category] ?? category;
+}
+
 export interface CatalogResult {
   products: Product[];
   source: DataSource;
@@ -44,8 +66,12 @@ function mapApiProduct(raw: any): Product {
     originalPrice: priceSale ? priceBase : raw.originalPrice,
     rating,
     reviews: typeof reviewCount === 'number' ? reviewCount : 0,
-    image: resolveProductImage(raw.images?.primary ?? raw.image),
-    category: raw.category ?? 'Uncategorized',
+    image: resolveProductImage(
+      raw.images?.primary ?? raw.image,
+      raw._id ?? raw.seo?.slug ?? raw.name,
+      raw.name,
+    ),
+    category: formatCategoryLabel(raw.category),
     description: raw.description ?? raw.shortDescription ?? '',
     features: raw.features ?? raw.tags ?? [],
     inStock: (raw.inventory?.quantity ?? 1) > 0,
@@ -78,7 +104,8 @@ export async function fetchCatalogProducts(options?: {
       status: 'active',
     };
     if (options?.category && options.category !== 'All Products') {
-      params.category = options.category;
+      const slug = categoryToSlug(options.category);
+      if (slug) params.category = slug;
     }
 
     const res = await api.get('/products', { params });

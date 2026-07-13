@@ -6,15 +6,13 @@ export enum ProductType {
   DIGITAL = 'digital'
 }
 
-// Product categories enum
+// Product categories enum (aligned with frontend lifestyle catalog)
 export enum ProductCategory {
-  BEACH_ACCESSORIES = 'beach-accessories',
-  SUNGLASSES = 'sunglasses',
-  SUNSCREEN = 'sunscreen',
-  BEACHWEAR = 'beachwear',
-  WATER_ACTIVITIES = 'water-activities',
-  EQUIPMENT = 'equipment',
-  COURSES = 'courses'
+  HOME_LIVING = 'home-living',
+  KITCHEN_ESSENTIALS = 'kitchen-essentials',
+  WORK_PRODUCTIVITY = 'work-productivity',
+  WELLNESS_SELF_CARE = 'wellness-self-care',
+  GARDEN_OUTDOOR = 'garden-outdoor'
 }
 
 // Product status enum

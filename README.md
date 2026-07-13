@@ -8,7 +8,7 @@ A calm, curated lifestyle storefront — built on the MERN stack with a clean Re
 
 [![CI](https://github.com/louislibuilds/SUNi-Make-Your-Day-Shining/actions/workflows/ci.yml/badge.svg)](https://github.com/louislibuilds/SUNi-Make-Your-Day-Shining/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-2d5a62.svg)](LICENSE)
-![Status](https://img.shields.io/badge/status-in%20development-c9a962.svg)
+![Status](https://img.shields.io/badge/status-live%20demo-2d5a62.svg)
 
 ![React](https://img.shields.io/badge/React-18-20232a?logo=react&logoColor=61dafb)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178c6?logo=typescript&logoColor=white)
@@ -50,9 +50,11 @@ cd client && npm install && npm run dev   # new terminal
 
 | Service | URL |
 |---------|-----|
-| 🛒 Storefront | http://localhost:3000 |
-| 🔌 API | http://localhost:5000 |
-| ❤️ Health | http://localhost:5000/health |
+| 🛒 Storefront (local) | http://localhost:3000 |
+| 🔌 API (local) | http://localhost:5000 |
+| ❤️ Health (local) | http://localhost:5000/health |
+| 🌐 **Live demo** | https://suni-make-your-day-shining.vercel.app |
+| 🔌 **Live API** | https://suni-make-your-day-shining-production.up.railway.app/health |
 
 > The storefront runs without a backend — mock catalog data is served when the API is offline.
 
@@ -68,15 +70,16 @@ server/     Express API
 
 ## 🧭 Status
 
-Personal side project — under active development.
+Personal side project — live demo with active development.
 
+- ✅ Deployed stack: Vercel (frontend) + Railway (API) + MongoDB Atlas
+- ✅ Catalog reads live API in production (mock fallback when offline)
 - ✅ Backend routes for auth, catalog, cart, and checkout
-- ✅ Storefront UI with API-first data and mock fallback
-- 🚧 Full frontend ↔ API integration across all pages
+- ✅ JWT login / register wired on the storefront
+- 🚧 Cart, checkout, and orders still use mock data on the client
 - 🚧 Admin CMS for product management
-- 🔜 Staging deployment
 
-**Demo:** _coming soon_
+**Demo:** https://suni-make-your-day-shining.vercel.app
 
 ## 📄 License
 

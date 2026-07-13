@@ -76,6 +76,7 @@ function isUsableImage(url?: string | null): boolean {
   if (!url) return false;
   if (url.startsWith('data:')) return false; // legacy inline placeholder
   if (url.includes('unsplash.com')) return false; // dropped stock host
+  if (url.includes('placehold.co')) return false;
   return true;
 }
 

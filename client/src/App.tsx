@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import About from './pages/About';
@@ -12,39 +12,39 @@ import Admin from './pages/Admin';
 import Checkout from './pages/Checkout';
 import Orders from './pages/Orders';
 import Profile from './pages/Profile';
+import { useAuthStore } from './store/authStore';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [userEmail, setUserEmail] = useState('');
+  const { user, isAuthenticated, logout } = useAuthStore();
+
+  const isLoggedIn = isAuthenticated;
+  const isAdmin = user?.role === 'admin';
+  const userEmail = user?.email ?? '';
 
   const handleNavigate = (page: string) => {
     setCurrentPage(page);
     window.scrollTo(0, 0);
   };
 
-  const handleLogin = (email: string, admin = false) => {
-    setIsLoggedIn(true);
-    setIsAdmin(admin);
-    setUserEmail(email);
+  const handleLogout = () => {
+    logout();
     setCurrentPage('home');
   };
 
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    setIsAdmin(false);
-    setUserEmail('');
-    setCurrentPage('home');
-  };
+  useEffect(() => {
+    if (currentPage === 'admin' && (!isAuthenticated || user?.role !== 'admin')) {
+      setCurrentPage(isAuthenticated ? 'home' : 'login');
+    }
+  }, [currentPage, isAuthenticated, user]);
 
   const getCategoryFromPage = (page: string) => {
     const categoryMap: { [key: string]: string } = {
       'category-home-living': 'Home & Living',
-      'category-kitchen-essentials': 'Kitchen Essentials', 
+      'category-kitchen-essentials': 'Kitchen Essentials',
       'category-work-productivity': 'Work & Productivity',
       'category-wellness-self-care': 'Wellness & Self-Care',
-      'category-garden-outdoor': 'Garden & Outdoor'
+      'category-garden-outdoor': 'Garden & Outdoor',
     };
     return categoryMap[page] || 'All Products';
   };
@@ -53,54 +53,89 @@ export default function App() {
     switch (currentPage) {
       case 'home':
         return <Home onNavigate={handleNavigate} />;
-      
+
       case 'products':
         return <Products />;
-      
+
       case 'category-home-living':
       case 'category-kitchen-essentials':
       case 'category-work-productivity':
       case 'category-wellness-self-care':
       case 'category-garden-outdoor':
         return <CategoryPage category={getCategoryFromPage(currentPage)} />;
-      
+
       case 'categories':
         return <CategoriesPage onNavigate={handleNavigate} />;
-      
+
       case 'about':
         return <About />;
-      
+
       case 'contact':
         return <Contact />;
 
-      // Admin
       case 'admin':
+        if (!isAuthenticated || user?.role !== 'admin') {
+          return null;
+        }
         return <Admin onNavigate={handleNavigate} />;
 
-      // Checkout & Orders
       case 'checkout':
-        return <Checkout onNavigate={handleNavigate} isLoggedIn={isLoggedIn} userEmail={userEmail} />;
-      
+        return (
+          <Checkout
+            onNavigate={handleNavigate}
+            isLoggedIn={isLoggedIn}
+            userEmail={userEmail}
+          />
+        );
+
       case 'order-confirmation':
-        return <Orders onNavigate={handleNavigate} isLoggedIn={isLoggedIn} orderType="confirmation" />;
-      
+        return (
+          <Orders
+            onNavigate={handleNavigate}
+            isLoggedIn={isLoggedIn}
+            orderType="confirmation"
+          />
+        );
+
       case 'order-history':
-        return <Orders onNavigate={handleNavigate} isLoggedIn={isLoggedIn} orderType="history" />;
-      
+        return (
+          <Orders
+            onNavigate={handleNavigate}
+            isLoggedIn={isLoggedIn}
+            orderType="history"
+          />
+        );
+
       case 'order-tracking':
-        return <Orders onNavigate={handleNavigate} isLoggedIn={isLoggedIn} orderType="tracking" />;
+        return (
+          <Orders
+            onNavigate={handleNavigate}
+            isLoggedIn={isLoggedIn}
+            orderType="tracking"
+          />
+        );
 
-      // Profile & Account
       case 'profile':
-        return <Profile onNavigate={handleNavigate} isLoggedIn={isLoggedIn} profileType="account" />;
-      
-      case 'guest-lookup':
-        return <Profile onNavigate={handleNavigate} isLoggedIn={false} profileType="guest-lookup" />;
+        return (
+          <Profile
+            onNavigate={handleNavigate}
+            isLoggedIn={isLoggedIn}
+            profileType="account"
+          />
+        );
 
-      // Login/Demo
+      case 'guest-lookup':
+        return (
+          <Profile
+            onNavigate={handleNavigate}
+            isLoggedIn={false}
+            profileType="guest-lookup"
+          />
+        );
+
       case 'login':
-        return <Login onNavigate={handleNavigate} onLogin={handleLogin} />;
-      
+        return <Login onNavigate={handleNavigate} />;
+
       default:
         return <Home onNavigate={handleNavigate} />;
     }
@@ -109,8 +144,8 @@ export default function App() {
   return (
     <div className="min-h-screen">
       {currentPage !== 'login' && currentPage !== 'admin' && (
-        <Header 
-          currentPage={currentPage} 
+        <Header
+          currentPage={currentPage}
           onNavigate={handleNavigate}
           isLoggedIn={isLoggedIn}
           isAdmin={isAdmin}

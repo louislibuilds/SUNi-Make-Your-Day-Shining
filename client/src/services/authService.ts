@@ -9,40 +9,62 @@ export interface RegisterRequest {
   name: string;
   email: string;
   password: string;
+  confirmPassword: string;
+}
+
+export interface AuthUser {
+  id: string;
+  name: string;
+  email: string;
+  role: 'user' | 'admin';
 }
 
 export interface AuthResponse {
-  user: {
-    id: string;
-    name: string;
-    email: string;
-    role: 'user' | 'admin';
-  };
+  user: AuthUser;
   token: string;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function mapUser(raw: any): AuthUser {
+  const role = raw.role === 'admin' ? 'admin' : 'user';
+  return {
+    id: raw._id ?? raw.id ?? '',
+    name: raw.name ?? '',
+    email: raw.email ?? '',
+    role,
+  };
 }
 
 export const authService = {
   login: async (data: LoginRequest): Promise<AuthResponse> => {
     const response = await api.post('/auth/login', data);
-    return response.data;
+    const payload = response.data?.data;
+    return {
+      user: mapUser(payload.user),
+      token: payload.tokens.accessToken,
+    };
   },
 
   register: async (data: RegisterRequest): Promise<AuthResponse> => {
     const response = await api.post('/auth/register', data);
-    return response.data;
+    const payload = response.data?.data;
+    return {
+      user: mapUser(payload.user),
+      token: payload.tokens.accessToken,
+    };
   },
 
   logout: async (): Promise<void> => {
     await api.post('/auth/logout');
   },
 
-  getProfile: async (): Promise<AuthResponse['user']> => {
+  getProfile: async (): Promise<AuthUser> => {
     const response = await api.get('/auth/profile');
-    return response.data;
+    return mapUser(response.data?.data?.user ?? response.data?.user);
   },
 
-  updateProfile: async (data: Partial<RegisterRequest>): Promise<AuthResponse['user']> => {
+  updateProfile: async (data: Partial<RegisterRequest>): Promise<AuthUser> => {
     const response = await api.put('/auth/profile', data);
-    return response.data;
-  }
+    return mapUser(response.data?.data?.user ?? response.data?.user);
+  },
 };
