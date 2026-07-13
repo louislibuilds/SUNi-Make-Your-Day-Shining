@@ -2,7 +2,6 @@ import { ArrowRight } from 'lucide-react';
 import { Card, CardContent } from './ui/card';
 import { Button } from './ui/button';
 import { ImageWithFallback } from './ui/image-with-fallback';
-import { PRODUCT_PLACEHOLDER_IMAGE } from '../lib/media';
 
 interface CategoriesProps {
   onNavigate: (page: string) => void;
@@ -13,28 +12,24 @@ const categories = [
     id: 1,
     name: "Home & Living",
     description: "Transform your space with beautiful, functional pieces",
-    image: PRODUCT_PLACEHOLDER_IMAGE,
     productCount: 145
   },
   {
     id: 2,
     name: "Kitchen Essentials",
     description: "Make cooking a joyful, efficient experience",
-    image: PRODUCT_PLACEHOLDER_IMAGE,
     productCount: 89
   },
   {
     id: 3,
     name: "Wellness & Self-Care",
     description: "Nurture your mind, body, and spirit daily",
-    image: PRODUCT_PLACEHOLDER_IMAGE,
     productCount: 67
   },
   {
     id: 4,
     name: "Work & Productivity",
     description: "Create an inspiring workspace that motivates",
-    image: PRODUCT_PLACEHOLDER_IMAGE,
     productCount: 123
   }
 ];
@@ -61,7 +56,8 @@ export function Categories({ onNavigate }: CategoriesProps) {
             >
               <div className="relative h-48 overflow-hidden">
                 <ImageWithFallback 
-                  src={category.image}
+                  seed={`category-${category.id}`}
+                  label={category.name}
                   alt={category.name}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
@@ -126,7 +122,8 @@ export function Categories({ onNavigate }: CategoriesProps) {
               </div>
               <div className="h-80 lg:h-full">
                 <ImageWithFallback
-                  src={PRODUCT_PLACEHOLDER_IMAGE}
+                  seed="new-arrivals"
+                  label="New Arrivals"
                   alt="New arrivals"
                   className="w-full h-full object-cover"
                 />

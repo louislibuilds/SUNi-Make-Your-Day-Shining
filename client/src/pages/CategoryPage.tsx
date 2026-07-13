@@ -119,6 +119,8 @@ export default function CategoryPage({ category }: CategoryPageProps) {
               <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl">
                 <ImageWithFallback 
                   src={info.image}
+                  seed={`category-${info.title}`}
+                  label={info.title}
                   alt={info.title}
                   className="w-full h-96 object-cover"
                 />

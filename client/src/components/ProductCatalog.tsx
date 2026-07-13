@@ -213,6 +213,8 @@ export function ProductCatalog({ selectedCategory = "All Products" }: ProductCat
       <div className="relative">
         <ImageWithFallback 
           src={product.image}
+          seed={product.id}
+          label={product.name}
           alt={product.name}
           className={`w-full object-cover group-hover:scale-105 transition-transform duration-300 ${
             viewMode === 'grid' ? 'h-64' : 'h-48'

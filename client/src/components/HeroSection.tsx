@@ -1,6 +1,5 @@
 import { Button } from './ui/button';
 import { ImageWithFallback } from './ui/image-with-fallback';
-import { PRODUCT_PLACEHOLDER_IMAGE } from '../lib/media';
 
 interface HeroSectionProps {
   onNavigate: (page: string) => void;
@@ -65,9 +64,10 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
           <div className="relative">
             <div className="relative z-10 rounded-2xl overflow-hidden border border-black/10">
               <ImageWithFallback
-                src={PRODUCT_PLACEHOLDER_IMAGE}
+                seed="suni-hero"
+                label="SUNi"
                 alt="SUNi storefront preview"
-                className="w-full h-96"
+                className="w-full h-96 object-cover"
               />
             </div>
           </div>

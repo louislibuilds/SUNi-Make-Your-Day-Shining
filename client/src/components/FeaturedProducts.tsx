@@ -33,6 +33,8 @@ export function FeaturedProducts({ onNavigate }: FeaturedProductsProps) {
                 <div className="relative">
                   <ImageWithFallback
                     src={product.image}
+                    seed={product.id}
+                    label={product.name}
                     alt={product.name}
                     className="w-full h-64 object-cover"
                   />

@@ -111,6 +111,8 @@ export default function Profile({ onNavigate, isLoggedIn, profileType }: Profile
                     <ImageWithFallback
                       key={index}
                       src={item.image}
+                      seed={item.name}
+                      label={item.name}
                       alt={item.name}
                       className="w-12 h-12 rounded-lg object-cover"
                     />
@@ -263,6 +265,8 @@ export default function Profile({ onNavigate, isLoggedIn, profileType }: Profile
                           <ImageWithFallback
                             key={index}
                             src={item.image}
+                            seed={item.name}
+                            label={item.name}
                             alt={item.name}
                             className="w-12 h-12 rounded-lg object-cover"
                           />

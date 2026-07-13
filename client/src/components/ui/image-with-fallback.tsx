@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import { Package } from 'lucide-react';
-import { PRODUCT_PLACEHOLDER_IMAGE, resolveProductImage } from '../../lib/media';
+import { resolveProductImage } from '../../lib/media';
 
 type ImageWithFallbackProps = React.ImgHTMLAttributes<HTMLImageElement> & {
-  showIconFallback?: boolean;
+  /** Stable identifier used to generate a consistent placeholder colour. */
+  seed?: string | number;
+  /** Short label (e.g. product/category name) shown as initials on the placeholder. */
+  label?: string;
 };
 
 export function ImageWithFallback({
@@ -11,43 +13,21 @@ export function ImageWithFallback({
   alt,
   style,
   className,
-  showIconFallback = true,
+  seed,
+  label,
   ...rest
 }: ImageWithFallbackProps) {
   const [didError, setDidError] = useState(false);
-  const resolved = resolveProductImage(src);
-
-  if (!src || didError) {
-    if (!showIconFallback) {
-      return (
-        <img
-          src={PRODUCT_PLACEHOLDER_IMAGE}
-          alt={alt ?? 'Product preview'}
-          className={className}
-          style={style}
-          {...rest}
-        />
-      );
-    }
-
-    return (
-      <div
-        className={`flex items-center justify-center bg-[#efece6] text-[#6b6b68] ${className ?? ''}`}
-        style={style}
-        role="img"
-        aria-label={alt ?? 'Product preview'}
-      >
-        <Package className="h-10 w-10 opacity-40" strokeWidth={1.25} />
-      </div>
-    );
-  }
+  const requested = typeof src === 'string' ? src : undefined;
+  const resolved = resolveProductImage(didError ? undefined : requested, seed, label);
 
   return (
     <img
       src={resolved}
-      alt={alt}
+      alt={alt ?? label ?? 'Product preview'}
       className={className}
       style={style}
+      loading="lazy"
       {...rest}
       onError={() => setDidError(true)}
     />

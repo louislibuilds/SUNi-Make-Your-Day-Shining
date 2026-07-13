@@ -135,6 +135,8 @@ export default function Orders({ onNavigate, isLoggedIn, orderType }: OrderPageP
                 <div key={index} className="flex items-center space-x-3">
                   <ImageWithFallback
                     src={item.image}
+                    seed={item.name}
+                    label={item.name}
                     alt={item.name}
                     className="w-16 h-16 rounded-lg object-cover"
                   />
@@ -277,6 +279,8 @@ export default function Orders({ onNavigate, isLoggedIn, orderType }: OrderPageP
                 <ImageWithFallback
                   key={index}
                   src={item.image}
+                  seed={item.name}
+                  label={item.name}
                   alt={item.name}
                   className="w-12 h-12 rounded-lg object-cover"
                 />
@@ -436,6 +440,8 @@ export default function Orders({ onNavigate, isLoggedIn, orderType }: OrderPageP
                   <div key={index} className="flex items-center space-x-3">
                     <ImageWithFallback
                       src={item.image}
+                      seed={item.name}
+                      label={item.name}
                       alt={item.name}
                       className="w-12 h-12 rounded-lg object-cover"
                     />
@@ -544,6 +550,8 @@ export default function Orders({ onNavigate, isLoggedIn, orderType }: OrderPageP
                       <div key={index} className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
                         <ImageWithFallback
                           src={item.image}
+                          seed={item.name}
+                          label={item.name}
                           alt={item.name}
                           className="w-16 h-16 rounded-lg object-cover"
                         />

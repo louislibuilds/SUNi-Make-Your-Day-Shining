@@ -252,6 +252,8 @@ export default function Admin({ onNavigate }: AdminDashboardProps) {
                           <div className="flex items-center space-x-3">
                             <ImageWithFallback
                               src={product.image}
+                              seed={product.id}
+                              label={product.name}
                               alt={product.name}
                               className="w-12 h-12 rounded-lg object-cover"
                             />

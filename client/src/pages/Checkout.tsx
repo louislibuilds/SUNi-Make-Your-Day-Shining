@@ -528,6 +528,8 @@ export default function Checkout({ onNavigate, isLoggedIn, userEmail }: Checkout
                     <div key={item.productId} className="flex items-center space-x-3">
                       <ImageWithFallback
                         src={item.image}
+                        seed={item.productId ?? item.name}
+                        label={item.name}
                         alt={item.name}
                         className="w-16 h-16 rounded-lg object-cover"
                       />
